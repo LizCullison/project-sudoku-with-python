@@ -7,7 +7,7 @@ class ClingoApp(Application):
         
     def main(self, ctl, files):
         ctl.load("sudoku.lp")
-        
+
         for file in files:
             ctl.load(file)
 
@@ -16,6 +16,10 @@ class ClingoApp(Application):
 
         ctl.ground([("base", [])])
         ctl.solve()
+
+    def print_model(self, model, printer):
+        symbols = model.symbols(shown=True)
+        print(" ".join(str(symbol) for symbol in sorted(symbols)))
 
 if __name__ == "__main__":
     clingo_main(ClingoApp(sys.argv[0]), sys.argv[1:])
